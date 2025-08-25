@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Notes Hub</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -30,7 +27,6 @@
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 antialiased flex flex-col min-h-screen">
-    <!-- Header -->
     <header class="bg-indigo-700 text-white shadow-lg p-4 sticky top-0 z-50">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
             <a href="#" class="text-3xl font-bold rounded-md px-3 py-2 hover:bg-indigo-800 transition-colors duration-300">College Notes Hub</a>
@@ -44,7 +40,6 @@
         </div>
     </header>
 
-    <!-- Main Content Area -->
     <main class="flex-grow container mx-auto p-6">
         <!-- Home Section -->
         <section id="home" class="bg-white rounded-lg shadow-xl p-8 mb-8 text-center animate-fade-in">
@@ -55,11 +50,9 @@
             </a>
         </section>
 
-        <!-- Browse Notes Section -->
         <section id="browse-notes" class="bg-white rounded-lg shadow-xl p-8 mb-8 animate-slide-up">
             <h2 class="text-3xl font-bold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-3">Browse Notes</h2>
 
-            <!-- Search and Filter Bar -->
             <div class="flex flex-col md:flex-row gap-4 mb-6">
                 <input type="text" placeholder="Search by title or keyword..."
                        class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200" />
@@ -70,20 +63,16 @@
                     <option value="chemistry">Chemistry</option>
                     <option value="cs">Computer Science</option>
                     <option value="history">History</option>
-                    <!-- Add more subjects as needed -->
                 </select>
                 <select class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200">
                     <option value="">All Courses</option>
                     <option value="cs101">CS 101</option>
                     <option value="mth201">MTH 201</option>
                     <option value="phy302">PHY 302</option>
-                    <!-- Add more courses as needed -->
                 </select>
             </div>
 
-            <!-- Notes List Grid -->
             <div id="notes-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Placeholder Note Card 1 -->
                 <div class="bg-indigo-50 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-all duration-300">
                     <div>
                         <h3 class="text-xl font-semibold text-indigo-800 mb-2">Calculus I Lecture Notes</h3>
@@ -98,7 +87,6 @@
                     </div>
                 </div>
 
-                <!-- Placeholder Note Card 2 -->
                 <div class="bg-indigo-50 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-all duration-300">
                     <div>
                         <h3 class="text-xl font-semibold text-indigo-800 mb-2">Physics Lab Report Guide</h3>
@@ -113,7 +101,6 @@
                     </div>
                 </div>
 
-                <!-- Placeholder Note Card 3 -->
                 <div class="bg-indigo-50 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-all duration-300">
                     <div>
                         <h3 class="text-xl font-semibold text-indigo-800 mb-2">Data Structures & Algorithms Cheat Sheet</h3>
@@ -127,7 +114,6 @@
                         </a>
                     </div>
                 </div>
-                <!-- More note cards would be dynamically added here by your backend -->
             </div>
             <div id="loading-spinner" class="hidden text-center mt-8">
                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
@@ -135,7 +121,6 @@
             </div>
         </section>
 
-        <!-- Upload Notes Section -->
         <section id="upload-notes" class="bg-white rounded-lg shadow-xl p-8 animate-slide-up">
             <h2 class="text-3xl font-bold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-3">Upload Notes (Seniors Only)</h2>
             <form id="upload-form" class="space-y-6">
@@ -187,14 +172,12 @@
             </div>
         </section>
     </main>
-
-    <!-- Footer -->
+    
     <footer class="bg-gray-800 text-gray-300 p-6 text-center shadow-inner mt-auto">
         <p>&copy; 2025 College Notes Hub. All rights reserved.</p>
         <p class="mt-2 text-sm">Made with ❤️ for the students.</p>
     </footer>
 
-    <!-- Basic JavaScript for smooth scrolling and form submission (placeholder) -->
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -205,14 +188,12 @@
             });
         });
 
-        // Placeholder for form submission
         document.getElementById('upload-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            // In a real application, you would send this data to your backend
             console.log('Form submitted!');
             document.getElementById('upload-status').classList.remove('hidden');
             document.getElementById('upload-error').classList.add('hidden');
-            // Simulate API call delay
+            
             setTimeout(() => {
                 document.getElementById('upload-status').classList.add('hidden');
                 document.getElementById('upload-form').reset();
