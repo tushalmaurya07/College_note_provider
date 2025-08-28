@@ -1,203 +1,247 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College Notes Hub</title>
+    <title>College Notes Hub - Home</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <!-- Inter Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            /* No direct background-color here, JavaScript will create a canvas background */
+            /* Ensure the body is not explicitly white or light gray */
+            margin: 0; /* Remove default body margin */
+            overflow-x: hidden; /* Prevent horizontal scrollbar from dynamic content */
+            position: relative; /* Needed for z-index context */
+            background-color: #0f172a; /* Fallback background color */
+
+            /* Custom Circular Cursor - Refined for aesthetics and smoothness */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="rgba(16, 185, 129, 0.8)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/></svg>') 12 12, auto;
         }
+
+        /* Apply the custom cursor to all anchor links as well */
+        a, button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="rgba(16, 185, 129, 0.8)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/></svg>') 12 12, pointer;
+        }
+
+
+        /* Canvas will sit behind all other content */
+        #dynamicBackgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Place behind all other content */
+            background-color: transparent; /* Ensure canvas itself is transparent if needed */
+        }
+
+        /* Custom scrollbar for better aesthetics with dark theme */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #4a5568; /* Darker track for contrast */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
-            background: #888;
+            background: #10b981; /* Emerald-500 shade */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: #059669; /* Darker emerald on hover */
+        }
+        /* Basic fade-in animation for sections */
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.7s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 antialiased flex flex-col min-h-screen">
-    <header class="bg-indigo-700 text-white shadow-lg p-4 sticky top-0 z-50">
+<body class="text-gray-100 antialiased flex flex-col min-h-screen">
+    <!-- Dynamic Background Canvas will be inserted here by JavaScript -->
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white shadow-lg p-4 sticky top-0 z-50">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-            <a href="#" class="text-3xl font-bold rounded-md px-3 py-2 hover:bg-indigo-800 transition-colors duration-300">College Notes Hub</a>
+            <a href="#home" class="text-3xl font-extrabold rounded-md px-3 py-2 hover:bg-blue-800 transition-colors duration-300">College Notes Hub</a>
             <nav class="mt-4 md:mt-0">
                 <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6">
-                    <li><a href="#home" class="block py-2 px-4 rounded-md hover:bg-indigo-800 transition-colors duration-300">Home</a></li>
-                    <li><a href="#browse-notes" class="block py-2 px-4 rounded-md hover:bg-indigo-800 transition-colors duration-300">Browse Notes</a></li>
-                    <li><a href="#upload-notes" class="block py-2 px-4 rounded-md hover:bg-indigo-800 transition-colors duration-300">Upload Notes</a></li>
+                    <li><a href="#home" class="block py-2 px-4 rounded-md hover:bg-blue-800 transition-colors duration-300">Home</a></li>
+                    <li><a href="upload.html" class="block py-2 px-4 rounded-md hover:bg-blue-800 transition-colors duration-300">Upload Notes</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
+    <!-- Main Content Area -->
     <main class="flex-grow container mx-auto p-6">
         <!-- Home Section -->
-        <section id="home" class="bg-white rounded-lg shadow-xl p-8 mb-8 text-center animate-fade-in">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-700 mb-4">Welcome to the College Notes Hub!</h1>
-            <p class="text-lg text-gray-700 mb-6">Your go-to place for academic resources, shared by seniors, for all students.</p>
-            <a href="#browse-notes" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
-                Start Browsing Notes
+        <section id="home" class="bg-gray-700 rounded-xl shadow-2xl p-8 mb-8 text-center animate-fade-in border-b-4 border-sky-500">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-sky-300 mb-4 tracking-tight">Welcome to the College Notes Hub!</h1>
+            <p class="text-xl text-gray-200 mb-6 max-w-2xl mx-auto leading-relaxed">Your vibrant space for academic resources, thoughtfully shared by seniors, empowering all students to thrive. ✨</p>
+            <!-- Link to the semester buttons section -->
+            <a href="#semester-buttons" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300 text-lg">
+                Explore Semesters
             </a>
         </section>
 
-        <section id="browse-notes" class="bg-white rounded-lg shadow-xl p-8 mb-8 animate-slide-up">
-            <h2 class="text-3xl font-bold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-3">Browse Notes</h2>
+        <!-- New Section for Semester Buttons -->
+        <section id="semester-buttons" class="bg-gray-700 rounded-xl shadow-2xl p-8 animate-slide-up border-b-4 border-emerald-500">
+            <h2 class="text-4xl font-extrabold text-sky-300 mb-8 border-b-2 border-blue-400 pb-4 text-center tracking-tight">Browse Notes by Semester</h2>
 
-            <div class="flex flex-col md:flex-row gap-4 mb-6">
-                <input type="text" placeholder="Search by title or keyword..."
-                       class="flex-grow p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200" />
-                <select class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200">
-                    <option value="">All Subjects</option>
-                    <option value="math">Mathematics</option>
-                    <option value="physics">Physics</option>
-                    <option value="chemistry">Chemistry</option>
-                    <option value="cs">Computer Science</option>
-                    <option value="history">History</option>
-                </select>
-                <select class="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200">
-                    <option value="">All Courses</option>
-                    <option value="cs101">CS 101</option>
-                    <option value="mth201">MTH 201</option>
-                    <option value="phy302">PHY 302</option>
-                </select>
-            </div>
-
-            <div id="notes-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-indigo-50 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-all duration-300">
-                    <div>
-                        <h3 class="text-xl font-semibold text-indigo-800 mb-2">Calculus I Lecture Notes</h3>
-                        <p class="text-gray-600 mb-1">Subject: Mathematics</p>
-                        <p class="text-gray-600 mb-3">Course: MTH 201</p>
-                        <p class="text-sm text-gray-500">Uploaded by: Senior A (2024)</p>
-                    </div>
-                    <div class="mt-4">
-                        <a href="#" class="block w-full bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-md transition-colors duration-300">
-                            Download PDF
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-indigo-50 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-all duration-300">
-                    <div>
-                        <h3 class="text-xl font-semibold text-indigo-800 mb-2">Physics Lab Report Guide</h3>
-                        <p class="text-gray-600 mb-1">Subject: Physics</p>
-                        <p class="text-gray-600 mb-3">Course: PHY 302</p>
-                        <p class="text-sm text-gray-500">Uploaded by: Senior B (2024)</p>
-                    </div>
-                    <div class="mt-4">
-                        <a href="#" class="block w-full bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-md transition-colors duration-300">
-                            Download DOCX
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-indigo-50 rounded-lg shadow-md p-5 flex flex-col justify-between transform hover:scale-105 transition-all duration-300">
-                    <div>
-                        <h3 class="text-xl font-semibold text-indigo-800 mb-2">Data Structures & Algorithms Cheat Sheet</h3>
-                        <p class="text-gray-600 mb-1">Subject: Computer Science</p>
-                        <p class="text-gray-600 mb-3">Course: CS 101</p>
-                        <p class="text-sm text-gray-500">Uploaded by: Senior C (2023)</p>
-                    </div>
-                    <div class="mt-4">
-                        <a href="#" class="block w-full bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-md transition-colors duration-300">
-                            Download PDF
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div id="loading-spinner" class="hidden text-center mt-8">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-                <p class="mt-3 text-indigo-700">Loading notes...</p>
-            </div>
-        </section>
-
-        <section id="upload-notes" class="bg-white rounded-lg shadow-xl p-8 animate-slide-up">
-            <h2 class="text-3xl font-bold text-indigo-700 mb-6 border-b-2 border-indigo-200 pb-3">Upload Notes (Seniors Only)</h2>
-            <form id="upload-form" class="space-y-6">
-                <div>
-                    <label for="note-title" class="block text-lg font-medium text-gray-700 mb-2">Note Title:</label>
-                    <input type="text" id="note-title" name="note-title" required
-                           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
-                           placeholder="e.g., Quantum Physics Midterm Review" />
-                </div>
-                <div>
-                    <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">Subject:</label>
-                    <input type="text" id="subject" name="subject" required
-                           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
-                           placeholder="e.g., Physics" />
-                </div>
-                <div>
-                    <label for="course" class="block text-lg font-medium text-gray-700 mb-2">Course Code:</label>
-                    <input type="text" id="course" name="course"
-                           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
-                           placeholder="e.g., PHY 401" />
-                </div>
-                <div>
-                    <label for="senior-name" class="block text-lg font-medium text-gray-700 mb-2">Your Name (Senior):</label>
-                    <input type="text" id="senior-name" name="senior-name" required
-                           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
-                           placeholder="e.g., John Doe" />
-                </div>
-                <div>
-                    <label for="notes-file" class="block text-lg font-medium text-gray-700 mb-2">Select Note File:</label>
-                    <input type="file" id="notes-file" name="notes-file" required accept=".pdf,.doc,.docx,.ppt,.pptx"
-                           class="block w-full text-sm text-gray-500
-                                  file:mr-4 file:py-2 file:px-4
-                                  file:rounded-full file:border-0
-                                  file:text-sm file:font-semibold
-                                  file:bg-indigo-50 file:text-indigo-700
-                                  hover:file:bg-indigo-100 transition-all duration-200" />
-                    <p class="mt-1 text-sm text-gray-500">Supported formats: PDF, DOC, DOCX, PPT, PPTX</p>
-                </div>
-                <button type="submit"
-                        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-md shadow-lg transform hover:scale-105 transition-all duration-300">
-                    Upload Note
-                </button>
-            </form>
-            <div id="upload-status" class="mt-4 text-center text-lg text-green-700 hidden">
-                Note uploaded successfully! Thank you for your contribution.
-            </div>
-            <div id="upload-error" class="mt-4 text-center text-lg text-red-700 hidden">
-                Error uploading note. Please try again.
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <a href="sem-1.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">📚</span>
+                    Semester 1
+                </a>
+                <a href="semester2.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">📖</span>
+                    Semester 2
+                </a>
+                <a href="semester3.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">✍️</span>
+                    Semester 3
+                </a>
+                <a href="semester4.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">🧠</span>
+                    Semester 4
+                </a>
+                <a href="semester5.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">💡</span>
+                    Semester 5
+                </a>
+                <a href="semester6.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">🔬</span>
+                    Semester 6
+                </a>
+                <a href="semester7.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">🎓</span>
+                    Semester 7
+                </a>
+                <a href="semester8.html" class="flex flex-col items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-5 px-4 rounded-xl shadow-lg
+                    transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 text-xl group">
+                    <span class="text-4xl mb-2 group-hover:animate-bounce">🌟</span>
+                    Semester 8
+                </a>
             </div>
         </section>
     </main>
-    
-    <footer class="bg-gray-800 text-gray-300 p-6 text-center shadow-inner mt-auto">
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 text-gray-400 p-6 text-center shadow-inner mt-auto">
         <p>&copy; 2025 College Notes Hub. All rights reserved.</p>
-        <p class="mt-2 text-sm">Made with ❤️ for the students.</p>
+        <p class="mt-2 text-sm">Crafted with passion for knowledge sharing. 🚀</p>
     </footer>
 
+    <!-- JavaScript for Dynamic Live Background -->
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'dynamicBackgroundCanvas';
+            document.body.prepend(canvas); // Add canvas as the first child of body
 
-        document.getElementById('upload-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Form submitted!');
-            document.getElementById('upload-status').classList.remove('hidden');
-            document.getElementById('upload-error').classList.add('hidden');
-            
-            setTimeout(() => {
-                document.getElementById('upload-status').classList.add('hidden');
-                document.getElementById('upload-form').reset();
-            }, 3000);
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let animationFrameId;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                // Re-initialize particles on resize to avoid density issues
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                particles = [];
+                initParticles();
+                animateParticles();
+            }
+
+            class Particle {
+                constructor(x, y, radius, color, velocity) {
+                    this.x = x;
+                    this.y = y;
+                    this.radius = radius;
+                    this.color = color;
+                    this.velocity = velocity;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                    ctx.closePath();
+                }
+
+                update() {
+                    this.x += this.velocity.x;
+                    this.y += this.velocity.y;
+
+                    // Bounce off walls
+                    if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                        this.velocity.x = -this.velocity.x;
+                    }
+                    if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                        this.velocity.y = -this.velocity.y;
+                    }
+
+                    this.draw();
+                }
+            }
+
+            function initParticles() {
+                const numberOfParticles = Math.floor((canvas.width * canvas.height) / 7000); // Density control
+                for (let i = 0; i < numberOfParticles; i++) {
+                    const radius = Math.random() * 3 + 1; // From 1 to 4 pixels
+                    const x = Math.random() * (canvas.width - radius * 2) + radius;
+                    const y = Math.random() * (canvas.height - radius * 2) + radius;
+                    // Adjusted particle color to match the new theme (emerald-500)
+                    const color = `rgba(16, 185, 129, ${Math.random() * 0.5 + 0.3})`; // Emerald with varying opacity
+                    const velocity = {
+                        x: (Math.random() - 0.5) * 0.4, // Slower movement
+                        y: (Math.random() - 0.5) * 0.4
+                    };
+                    particles.push(new Particle(x, y, radius, color, velocity));
+                }
+            }
+
+            function animateParticles() {
+                animationFrameId = requestAnimationFrame(animateParticles);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+                // Redraw a dark background for the canvas to ensure consistency
+                ctx.fillStyle = '#0f172a'; // Match body fallback background or a slightly darker tone
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(particle => {
+                    particle.update();
+                });
+            }
+
+            // Initial setup
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
         });
     </script>
 </body>
